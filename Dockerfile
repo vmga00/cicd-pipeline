@@ -1,6 +1,8 @@
 FROM node:14
+RUN ls -la  # This will list the contents of the current directory
 WORKDIR /opt
 ADD . /opt
+RUN ls -la  # This will list the contents of the current directory
 RUN npm install
 ENTRYPOINT npm run start
 
