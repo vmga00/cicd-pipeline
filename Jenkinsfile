@@ -5,7 +5,7 @@ pipeline {
       steps {
         script {
           checkout scm
-          def customImage = docker.bluid("#{registry}:latest")
+          def customImage = docker.build("#{registry}:latest")
         }
 
       }
