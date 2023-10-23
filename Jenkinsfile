@@ -6,6 +6,7 @@ pipeline {
         deleteDir()
       }
     }
+
     stage('Build') {
       steps {
         script {
