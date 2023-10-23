@@ -7,10 +7,8 @@ pipeline {
           checkout scm
           def customImage = docker.build("${registry}:latest")
         }
-
       }
     }
-
   }
   environment {
     registry = 'vmga00/flask-app'
