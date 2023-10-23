@@ -7,21 +7,20 @@ pipeline {
       }
     }
 
-    stage('Check Code Quality'){
-      steps{
-        script{
-          docker.image('python:3.9').inside{c->
-            sh '''
-              python -m  venv .venv
-              . .env/bin/activate
-              pip install pylint
-              pip install -r requirements.txt
-              pylint --exit-zero --report=y --output-format=json:pylint-report.json,colorized ./*.py
-            '''
-          }
+    stage('Check Code Quality') {
+    steps {
+        script {
+            docker.image('node:14').inside { c ->
+                sh '''
+                    npm install eslint stylelint htmlhint
+                    eslint 'src/**/*.js'
+                    stylelint 'src/**/*.css'
+                    htmlhint 'public/**/*.html'
+                '''
+            }
         }
-      }
     }
+}
 
     stage('Build') {
       steps {
