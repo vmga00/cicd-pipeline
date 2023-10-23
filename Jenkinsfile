@@ -16,19 +16,19 @@ pipeline {
     }
 
     stage('Check Code Quality') {
-    steps {
-        script {
-            docker.image('arm64v8/node:21').inside { c ->
-                sh '''
-                    npm install eslint stylelint htmlhint
-                    eslint 'src/**/*.js'
-                    stylelint 'src/**/*.css'
-                    htmlhint 'public/**/*.html'
-                '''
-            }
-        }
+      steps {
+          script {
+              docker.image('arm64v8/node:21').inside { c ->
+                  sh '''
+                      npm install eslint stylelint htmlhint
+                      eslint 'src/**/*.js'
+                      stylelint 'src/**/*.css'
+                      htmlhint 'public/**/*.html'
+                  '''
+              }
+          }
+      }
     }
-}
 
     stage('Build') {
       steps {
@@ -37,36 +37,35 @@ pipeline {
           sh './scripts/build.sh'
           def customImage = docker.build("${registry}:latest")
         }
-
       }
     }
 
     stage('Test') {
-            steps {
-                script {
+      steps {
+        script {
                     sh 'chmod +x scripts/test.sh'
                     sh './scripts/test.sh'
-                }
-          }
-     }
+        }
+      }
+    }
     
     stage('Build Docker Image') {
-            steps {
-                script {
+      steps {
+        script {
                     sh 'docker build -t DevOps_CICD_Victor_Gonzalez .'
                 }
-            }
+        }
     }
 
     stage('Publish') {
-            steps {
-                script {
-                    docker.withRegistry('', 'dockerhub-id'){
-                      docker.image("${registry}:latest").push('latest')
-                    }
-                }
-            }
+      steps {
+        script {
+          docker.withRegistry('', 'dockerhub-id'){
+            docker.image("${registry}:latest").push('latest')
+          }
         }
+      }
+    }
     
     
   }
