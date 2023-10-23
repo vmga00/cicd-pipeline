@@ -20,7 +20,9 @@ pipeline {
           script {
               docker.image('arm64v8/node:21').inside { c ->
                   sh '''
-                      npm install eslint stylelint htmlhint
+                      rm -rf /root/.npm/_cacache
+                      npm cache clean --force
+                      npm install eslint stylelint htmlhint --unsafe-perm
                       eslint 'src/**/*.js'
                       stylelint 'src/**/*.css'
                       htmlhint 'public/**/*.html'
