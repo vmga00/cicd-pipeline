@@ -18,11 +18,17 @@ pipeline {
     stage('Check Code Quality') {
           steps {
               script {
-                  docker.image('arm64v8/node:21').inside {
-                      dir('/opt/app') {
-                          sh '''
-                              npm install eslint stylelint htmlhint
-                          '''
+                  docker.image('arm64v8/node:21').inside{
+                      sh'''
+                        mkdir -p /home/app/tmp
+                      '''
+                      dir('/home/app/tmp'){
+                        sh'''
+                          npm install eslint stylelint htmlhint --unsafe-perm
+                          eslint 'src/**/*.js'
+                          stylelint 'src/**/*.css'
+                          htmlhint 'public/**/*.html'
+                        '''
                       }
                   }
               }
