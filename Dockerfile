@@ -1,4 +1,4 @@
-FROM node:7.8.0
+FROM node:7.8.0-arm64
 RUN ls -la
 WORKDIR /opt
 ADD . /opt
