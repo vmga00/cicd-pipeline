@@ -19,7 +19,7 @@ pipeline {
           steps {
               script {
                   docker.image('arm64v8/node:21').inside{
-                      dir('/opt/app/tmp'){
+                      dir('/opt/app'){
                         sh'''
                           npm install eslint stylelint htmlhint --unsafe-perm
                           eslint 'src/**/*.js'
