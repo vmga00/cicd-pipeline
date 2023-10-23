@@ -7,6 +7,12 @@ pipeline {
       }
     }
 
+    stage('Checkout'){
+      stepts{
+        checkout scm
+      }
+    }
+
     stage('Check Code Quality') {
     steps {
         script {
@@ -25,7 +31,6 @@ pipeline {
     stage('Build') {
       steps {
         script {
-          checkout scm
           sh 'chmod +x scripts/build.sh'
           sh './scripts/build.sh'
           def customImage = docker.build("${registry}:latest")
