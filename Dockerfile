@@ -1,7 +1,7 @@
 FROM node:7.8.0
 WORKDIR /opt
 ADD . /opt
-RUN npm install express
+RUN npm install
 ENTRYPOINT npm run start
 
 #FROM python3
