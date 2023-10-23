@@ -11,6 +11,6 @@ pipeline {
     }
   }
   environment {
-    registry = 'vmga00/flask-app'
+    registry = 'vmga00-flask-app'
   }
 }
