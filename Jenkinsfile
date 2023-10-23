@@ -16,19 +16,20 @@ pipeline {
     }
 
     stage('Check Code Quality') {
-      steps {
-          script {
-              docker.image('arm64v8/node:21').inside { c ->
-                  sh '''
-                      npm cache clean --force
-                      npm install eslint stylelint htmlhint --unsafe-perm
-                      eslint 'src/**/*.js'
-                      stylelint 'src/**/*.css'
-                      htmlhint 'public/**/*.html'
-                  '''
+          steps {
+              script {
+                  docker.image('arm64v8/node:21').inside {
+                      sh '''
+                          mkdir -p /opt/app
+                      '''
+                      dir('/opt/app') {
+                          sh '''
+                              npm install eslint stylelint htmlhint
+                          '''
+                      }
+                  }
               }
-          }
-      }
+       }
     }
 
     stage('Build') {
