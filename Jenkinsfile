@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    sstage('Clean Workspace') {
+    stage('Clean Workspace') {
       steps {
         deleteDir()
       }
