@@ -9,7 +9,9 @@ pipeline {
 
     stage('Checkout'){
       stepts{
-        checkout scm
+        script{
+          checkout scm
+        }
       }
     }
 
