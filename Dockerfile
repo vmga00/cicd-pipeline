@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:7.8.0
 RUN ls -la  # This will list the contents of the current directory
 WORKDIR /opt
 ADD . /opt
