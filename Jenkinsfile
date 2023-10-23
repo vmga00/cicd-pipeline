@@ -18,7 +18,7 @@ pipeline {
     stage('Check Code Quality') {
     steps {
         script {
-            docker.image('node:14').inside { c ->
+            docker.image('arm64v8/node:21').inside { c ->
                 sh '''
                     npm install eslint stylelint htmlhint
                     eslint 'src/**/*.js'
