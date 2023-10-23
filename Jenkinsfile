@@ -20,7 +20,6 @@ pipeline {
           script {
               docker.image('arm64v8/node:21').inside { c ->
                   sh '''
-                      sudo rm -rf /root/.npm/_cacache
                       npm cache clean --force
                       npm install eslint stylelint htmlhint --unsafe-perm
                       eslint 'src/**/*.js'
